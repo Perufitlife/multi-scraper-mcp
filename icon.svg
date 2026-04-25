@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect width="256" height="256" fill="#1a1a2e"/>
+  <circle cx="128" cy="100" r="40" fill="#16ad5d" opacity="0.9"/>
+  <circle cx="80" cy="170" r="28" fill="#3b82f6" opacity="0.85"/>
+  <circle cx="176" cy="170" r="28" fill="#f59e0b" opacity="0.85"/>
+  <line x1="128" y1="100" x2="80" y2="170" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <line x1="128" y1="100" x2="176" y2="170" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <line x1="80" y1="170" x2="176" y2="170" stroke="#fff" stroke-width="3" opacity="0.6"/>
+  <text x="128" y="232" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#fff">MCP</text>
+</svg>

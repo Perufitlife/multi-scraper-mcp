@@ -1,0 +1,14 @@
+{
+  "actorSpecification": 1,
+  "name": "multi-scraper-mcp",
+  "title": "Multi-Scraper MCP Server - 12 Tools for AI Agents",
+  "version": "0.1",
+  "buildTag": "latest",
+  "defaultMemoryMbytes": 512,
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 2048,
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "input": "./input_schema.json",
+  "webServerMcpPath": "/mcp"
+}

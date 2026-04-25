@@ -1,0 +1,15 @@
+{
+  "title": "Multi-Scraper MCP Server",
+  "description": "Run as a Standby Actor and connect from any MCP client (Claude Desktop, ChatGPT, Cursor, Cline, Continue, Windsurf). Exposes 12 web scraping tools.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "yelpApiKey": {
+      "title": "Yelp Fusion API Key (optional)",
+      "type": "string",
+      "description": "Required only for the yelp_search tool. Get a free key at https://docs.developer.yelp.com/",
+      "editor": "textfield",
+      "isSecret": true
+    }
+  }
+}
