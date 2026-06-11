@@ -34,8 +34,8 @@ async function runActor(actorId, payload) {
 
 function makeServer() {
     const server = new Server(
-        { name: 'multi-scraper-mcp', version: '1.0.0' },
-        { capabilities: { tools: {} } },
+        { name: 'multi-scraper-mcp', version: '1.1.0' },
+        { capabilities: { tools: {}, logging: {} } },
     );
 
     server.setRequestHandler(ListToolsRequestSchema, async () => ({
@@ -46,7 +46,7 @@ function makeServer() {
         })),
     }));
 
-    server.setRequestHandler(CallToolRequestSchema, async (req) => {
+    server.setRequestHandler(CallToolRequestSchema, async (req, extra) => {
         const { name, arguments: args } = req.params;
         const tool = TOOLS.find(t => t.name === name);
         if (!tool) {
@@ -57,13 +57,25 @@ function makeServer() {
         if (tool.passthroughInput) {
             for (const [k, v] of Object.entries(tool.passthroughInput)) {
                 if (v === '__YELP_KEY__') {
-                    if (!yelpApiKey) {
-                        return { content: [{ type: 'text', text: 'yelpApiKey is not configured. Set it in the Actor input to use yelp_search.' }], isError: true };
+                    // BYOK: prefer key passed as tool argument, fall back to Actor input.
+                    const key = payload[k] || yelpApiKey;
+                    if (!key) {
+                        return { content: [{ type: 'text', text: 'yelpApiKey is required for yelp_search. Pass it as the "yelpApiKey" tool argument (free key: https://docs.developer.yelp.com/).' }], isError: true };
                     }
-                    payload[k] = yelpApiKey;
+                    payload[k] = key;
                 }
             }
         }
+
+        // Keepalive: scraper runs can take 1-3 min; without bytes on the wire the
+        // standby HTTP gateway drops the connection (~60s first-byte timeout).
+        // Stream a logging notification every 10s while the tool runs.
+        const keepalive = setInterval(() => {
+            extra?.sendNotification?.({
+                method: 'notifications/message',
+                params: { level: 'info', logger: 'multi-scraper-mcp', data: `Still running ${name}...` },
+            }).catch(() => {});
+        }, 10000);
 
         try {
             const items = await runActor(tool.actorId, payload);
@@ -72,6 +84,8 @@ function makeServer() {
             return { content: [{ type: 'text', text: summary }] };
         } catch (e) {
             return { content: [{ type: 'text', text: `Error: ${e.message}` }], isError: true };
+        } finally {
+            clearInterval(keepalive);
         }
     });
 
@@ -151,11 +165,27 @@ app.post('/messages', async (req, res) => {
     await transport.handlePostMessage(req, res);
 });
 
+// === Smithery well-known server card (no auth required for scanning) ===
+app.get('/.well-known/mcp/server-card.json', (req, res) => {
+    res.json({
+        name: 'multi-scraper-mcp',
+        version: '1.1.0',
+        description: 'MCP server exposing 12 web scraping tools for AI agents (Reddit, Amazon, eBay, Google Maps, Yelp, YouTube, TikTok, Indeed, Trustpilot, contact finder, SaaS pricing).',
+        protocolVersion: '2025-06-18',
+        capabilities: { tools: {} },
+        tools: TOOLS.map(t => ({
+            name: t.name,
+            description: t.description,
+            inputSchema: t.inputSchema,
+        })),
+    });
+});
+
 // === Info / health endpoint ===
 app.get('/', (req, res) => {
     res.json({
         name: 'multi-scraper-mcp',
-        version: '1.0.0',
+        version: '1.1.0',
         description: 'MCP server exposing 12 web scraping tools for AI agents',
         tools: TOOLS.map(t => t.name),
         toolCount: TOOLS.length,

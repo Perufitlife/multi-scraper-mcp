@@ -1,6 +1,6 @@
 {
   "name": "multi-scraper-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server exposing 12 web scrapers as tools for AI agents (ChatGPT, Claude, Cursor). Reddit, eBay, Amazon, Google Maps, Yelp, YouTube, TikTok, Indeed, Trustpilot, contact finder, SaaS pricing, gmaps reviews.",
   "type": "module",
   "main": "src/main.js",
