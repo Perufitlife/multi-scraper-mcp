@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.Perufitlife/multi-scraper-mcp",
-  "description": "12 web scraping tools for AI agents: Reddit, Amazon, eBay, Google Maps, Yelp, YouTube, TikTok",
-  "version": "1.0.0",
+  "description": "12 web scraping tools for AI agents: Reddit, Amazon, eBay, Google Maps, Yelp, YouTube, TikTok, Indeed, Trustpilot, contact finder, SaaS pricing. Pay per successful tool call.",
+  "version": "1.1.0",
   "repository": {
     "url": "https://github.com/Perufitlife/multi-scraper-mcp",
     "source": "github"
