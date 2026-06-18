@@ -9,7 +9,8 @@
   "files": [
     "index.js",
     "tools.js",
-    "README.md"
+    "README.md",
+    "Dockerfile"
   ],
   "keywords": [
     "mcp",
