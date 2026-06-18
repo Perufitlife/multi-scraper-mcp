@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Perufitlife/multi-scraper-mcp",
+  "description": "14 web scrapers as MCP tools: Reddit, Amazon, eBay, Google Maps, Yelp, YouTube, TikTok, Indeed & more.",
+  "repository": {
+    "url": "https://github.com/Perufitlife/multi-scraper-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "multi-scraper-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Your Apify API token (free at https://console.apify.com/account/integrations)",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string",
+          "name": "APIFY_TOKEN"
+        }
+      ]
+    }
+  ]
+}

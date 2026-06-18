@@ -1,0 +1,34 @@
+{
+  "name": "multi-scraper-mcp",
+  "version": "1.0.0",
+  "description": "MCP server exposing 14 web scrapers as tools for AI agents: Reddit, Amazon, eBay, Google Maps, Yelp, YouTube, TikTok, Indeed, Trustpilot, contact finder, and lead-gen.",
+  "type": "module",
+  "bin": {
+    "multi-scraper-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "tools.js",
+    "README.md"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "scraping",
+    "web-scraping",
+    "ai-agent",
+    "claude",
+    "cursor",
+    "reddit",
+    "amazon",
+    "google-maps",
+    "lead-generation",
+    "apify"
+  ],
+  "homepage": "https://github.com/Perufitlife/multi-scraper-mcp",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "mcpName": "io.github.Perufitlife/multi-scraper-mcp"
+}
